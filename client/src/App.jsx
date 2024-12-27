@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
+import  { useState, useEffect } from "react";
 import './App.css';
 import Square from '../Square/Square';
 
@@ -10,6 +11,7 @@ const renderFrom = [
 ];
 
 const App = () => {
+  const [gameState, setGameState] = useState(renderFrom);
   return (
     <div className="main-div">
       <div>
@@ -19,8 +21,10 @@ const App = () => {
       </div>
         <h1 className='game-heading water-background'>Tic Tac Toe</h1>
         <div className='square-wrapper'>
-          {renderFrom.map((arr) =>
-            arr.map((e) => <Square key={e} />)
+          {gameState.map((arr) =>
+          arr.map((e) => {
+            return <Square setGameState={setGameState} id ={e} key={e}/>
+          })
           )}
         </div>
       </div>
