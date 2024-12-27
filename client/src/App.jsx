@@ -13,12 +13,14 @@ const App = () => {
   return (
     <div className="main-div">
       <div>
-        <h1 className="game-heading water-background">Tic Tac Toe</h1>
-        <div className="square-wrapper">
-          {renderFrom.map((arr, rowIndex) =>
-            arr.map((e, colIndex) => (
-              <Square key={`${rowIndex}-${colIndex}`} />
-            ))
+      <div className='move-detection'>
+      <div className='left'>YOURSELF</div>
+      <div className='right'>OPPONENT</div>
+      </div>
+        <h1 className='game-heading water-background'>Tic Tac Toe</h1>
+        <div className='square-wrapper'>
+          {renderFrom.map((arr) =>
+            arr.map((e) => <Square key={e} />)
           )}
         </div>
       </div>
