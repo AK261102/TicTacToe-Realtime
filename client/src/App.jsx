@@ -12,6 +12,7 @@ const renderFrom = [
 
 const App = () => {
   const [gameState, setGameState] = useState(renderFrom);
+  const [currentPlayer, setCurrentPlayer] = useState("circle");
   return (
     <div className="main-div">
       <div>
@@ -23,7 +24,10 @@ const App = () => {
         <div className='square-wrapper'>
           {gameState.map((arr) =>
           arr.map((e) => {
-            return <Square setGameState={setGameState} id ={e} key={e}/>
+            return <Square 
+            currentPlayer={currentPlayer}
+            setCurrentPlayer={setCurrentPlayer}
+            setGameState={setGameState} id ={e} key={e}/>
           })
           )}
         </div>

@@ -44,8 +44,21 @@ const circleSvg = (
     </svg>
   );
 
-const Square = ({setGameState,id})=>{
+const Square = ({setGameState,id,currentPlayer, setCurrentPlayer})=>{
     const [icon, setIcon] = useState(null);
-    return <div className='square'>{icon}</div>;
+    const clickOnSquare = () => {
+        if(!icon)
+        {
+            if (currentPlayer === "circle") {
+                setIcon(circleSvg);
+              } else {
+                setIcon(crossSvg);
+              }
+              setCurrentPlayer(currentPlayer === "circle" ? "cross" : "circle");
+
+        }
+    }
+
+    return <div onClick={clickOnSquare} className='square'>{icon}</div>;
 };
-export default Square
+export default Square 
