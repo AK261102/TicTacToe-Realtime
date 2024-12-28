@@ -3,6 +3,7 @@ import React from 'react';
 import  { useState, useEffect } from "react";
 import './App.css';
 import Square from '../Square/Square';
+import { io } from "socket.io-client";
 
 const renderFrom = [
   [1, 2, 3],
@@ -16,6 +17,7 @@ const App = () => {
   const [finishedState, setFinishetState] = useState(false);
   const [finishedArrayState, setFinishedArrayState] = useState([]);
   const [playOnline, setPlayOnline] = useState(false);
+  const [socket, setSocket] = useState(null);
   const checkWinner = () => {
     // row dynamic
     for (let row = 0; row < gameState.length; row++) {
@@ -83,7 +85,45 @@ const App = () => {
 
     return result;
   };
-  
+
+  async function playOnlineClick() {
+    const result = await takePlayerName();
+
+    if (!result.isConfirmed) {
+      return;
+    }
+
+    const username = result.value;
+    setPlayerName(username);
+
+    const newSocket = io("http://localhost:3000", {
+      autoConnect: true,
+    });
+
+    newSocket?.emit("request_to_play", {
+      playerName: username,
+    });
+
+    setSocket(newSocket);
+  }
+  if (!playOnline) {
+    return (
+      <div className="main-div">
+        <button onClick={playOnlineClick} className="playOnline">
+          Play Online
+        </button>
+      </div>
+    );
+  }
+
+  if (playOnline && !opponentName) {
+    return (
+      <div className="waiting">
+        <p>Waiting for opponent</p>
+      </div>
+    );
+  }
+
   return (
     <div className="main-div">
       <div>
