@@ -44,7 +44,14 @@ const circleSvg = (
     </svg>
   );
 
-const Square = ({setGameState,id,currentPlayer, setCurrentPlayer,finishedState, setFinishetState})=>{
+const Square = ({ gameState,
+    setGameState,
+    finishedArrayState,
+    setFinishedState,
+    finishedState,
+    id,
+    currentPlayer,
+    setCurrentPlayer,})=>{
     const [icon, setIcon] = useState(null);
     const clickOnSquare = () => {
         if (playingAs !== currentPlayer) {
@@ -77,6 +84,21 @@ const Square = ({setGameState,id,currentPlayer, setCurrentPlayer,finishedState, 
         }
       };
 
-    return <div onClick={clickOnSquare} className='square'>{icon}</div>;
+      return (
+        <div
+          onClick={clickOnSquare}
+          className={`square ${finishedState ? "not-allowed" : ""}
+          ${currentPlayer !== playingAs ? "not-allowed" : ""}
+           ${finishedArrayState.includes(id) ? finishedState + "-won" : ""}
+           ${finishedState && finishedState !== playingAs ? "grey-background" : ""}
+           `}
+        >
+          {currentElement === "circle"
+            ? circleSvg
+            : currentElement === "cross"
+            ? crossSvg
+            : icon}
+        </div>
+      );
 };
 export default Square 

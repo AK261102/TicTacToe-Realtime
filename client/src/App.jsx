@@ -14,6 +14,8 @@ const App = () => {
   const [gameState, setGameState] = useState(renderFrom);
   const [currentPlayer, setCurrentPlayer] = useState("circle");
   const [finishedState, setFinishetState] = useState(false);
+  const [finishedArrayState, setFinishedArrayState] = useState([]);
+  const [playOnline, setPlayOnline] = useState(false);
   const checkWinner = () => {
     // row dynamic
     for (let row = 0; row < gameState.length; row++) {
@@ -21,7 +23,7 @@ const App = () => {
         gameState[row][0] === gameState[row][1] &&
         gameState[row][1] === gameState[row][2]
       ) {
-
+        setFinishedArrayState([row * 3 + 0, row * 3 + 1, row * 3 + 2]);
         return gameState[row][0];
       }
     }
@@ -32,7 +34,7 @@ const App = () => {
         gameState[0][col] === gameState[1][col] &&
         gameState[1][col] === gameState[2][col]
       ) {
-
+        setFinishedArrayState([0 * 3 + col, 1 * 3 + col, 2 * 3 + col]);
         return gameState[0][col];
       }
     }
@@ -67,6 +69,21 @@ const App = () => {
     }
   }, [gameState]);
 
+  const takePlayerName = async () => {
+    const result = await Swal.fire({
+      title: "Enter your name",
+      input: "text",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return "You need to write something!";
+        }
+      },
+    });
+
+    return result;
+  };
+  
   return (
     <div className="main-div">
       <div>
@@ -78,7 +95,8 @@ const App = () => {
         <div className='square-wrapper'>
           {gameState.map((arr,rowIndex) =>
           arr.map((e,colIndex) => {
-            return <Square 
+            return <Square
+            finishedArrayState={finishedArrayState} 
             finishedState={finishedState}
             currentPlayer={currentPlayer}
             setCurrentPlayer={setCurrentPlayer}
