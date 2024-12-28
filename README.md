@@ -1,7 +1,7 @@
+![Alt Text](https://media0.giphy.com/media/gR92EF4p9XyEHyD2n5/giphy.gif?cid=6c09b952ruoc7gacdu5hht8cfvgl5lwocriuv3ubktx1vlvu&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
-# Project Title
 
-Realtime Tic-Tac-Toe Game :->
+# Realtime Tic-Tac-Toe Game :->
 
 Develop a real-time multiplayer Tic-Tac-Toe game leveraging React.js, Node.js, and Socket.io. This project offers a comprehensive experience in building real-time web applications, mastering multiplayer game mechanics, and working with full-stack JavaScript technologies.
 
