@@ -14,6 +14,59 @@ const App = () => {
   const [gameState, setGameState] = useState(renderFrom);
   const [currentPlayer, setCurrentPlayer] = useState("circle");
   const [finishedState, setFinishetState] = useState(false);
+  const checkWinner = () => {
+    // row dynamic
+    for (let row = 0; row < gameState.length; row++) {
+      if (
+        gameState[row][0] === gameState[row][1] &&
+        gameState[row][1] === gameState[row][2]
+      ) {
+
+        return gameState[row][0];
+      }
+    }
+
+    // column dynamic
+    for (let col = 0; col < gameState.length; col++) {
+      if (
+        gameState[0][col] === gameState[1][col] &&
+        gameState[1][col] === gameState[2][col]
+      ) {
+
+        return gameState[0][col];
+      }
+    }
+
+    if (
+      gameState[0][0] === gameState[1][1] &&
+      gameState[1][1] === gameState[2][2]
+    ) {
+      return gameState[0][0];
+    }
+
+    if (
+      gameState[0][2] === gameState[1][1] &&
+      gameState[1][1] === gameState[2][0]
+    ) {
+      return gameState[0][2];
+    }
+
+    const isDrawMatch = gameState.flat().every((e) => {
+      if (e === "circle" || e === "cross") return true;
+    });
+
+    if (isDrawMatch) return "draw";
+
+    return null;
+  };
+
+  useEffect(() => {
+    const winner = checkWinner();
+    if (winner) {
+      setFinishetState(winner);
+    }
+  }, [gameState]);
+
   return (
     <div className="main-div">
       <div>
@@ -27,7 +80,6 @@ const App = () => {
           arr.map((e,colIndex) => {
             return <Square 
             finishedState={finishedState}
-            setFinishetState={setFinishetState}
             currentPlayer={currentPlayer}
             setCurrentPlayer={setCurrentPlayer}
             setGameState={setGameState}  
